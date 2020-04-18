@@ -92,6 +92,7 @@ def get_views():
 		data.append(view_dict)
 	return {'views': data}
 
+
 @app.route('/api/create/pageview', methods=['POST'])
 def create_pageview():
 	payload = Box(request.get_json())

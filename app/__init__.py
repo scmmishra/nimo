@@ -22,4 +22,4 @@ def after_request(response):
 	g.db.close()
 	return response
 
-from app import routes, models
+from app import routes, models, commands
