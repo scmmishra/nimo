@@ -1,0 +1,34 @@
+{
+  "name": "my-tailwind-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss css/tailwind.css -o public/build/tailwind.css && webpack --config webpack.config.js",
+    "watch": "webpack --config webpack.config.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scmmishra/worldscutestcto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scmmishra/worldscutestcto/issues"
+  },
+  "homepage": "https://github.com/scmmishra/worldscutestcto#readme",
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "^1.2.0",
+    "autoprefixer": "^9.6.1",
+    "frappe-charts": "^1.3.0",
+    "postcss-cli": "^6.1.2",
+    "tailwindcss": "^1.0.4"
+  },
+  "devDependencies": {
+    "css-loader": "^3.5.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
