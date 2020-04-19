@@ -1,4 +1,4 @@
-from app import app
+from app import app, db
 from app.models import PageView, Project, User
 
 from flask import jsonify
@@ -39,28 +39,26 @@ def get_projects():
 	return {'projects': data}
 
 
-@app.route('/api/pageviews', methods=['POST'])
-def get_pageviews_grouped_by():
-	payload = Box(request.get_json())
-	group_by = getattr(PageView, payload.group_by)
-	project = payload.project
+@app.route('/api/pageviews/<project>/<group_by>', methods=['GET'])
+def get_pageviews_grouped_by(project, group_by):
+	group_by_field = getattr(PageView, group_by)
 
-	query = (PageView.select(group_by, fn.Count(PageView.uuid).alias('count'))
-				.where(PageView.project_id == payload.project)
-				.group_by(group_by))
+	query = (PageView.select(group_by_field, fn.Count(PageView.uuid).alias('count'))
+				.where(PageView.project_id == project)
+				.group_by(group_by_field)).order_by(fn.Count(PageView.uuid).alias('count').desc())
 
 	data = []
 	for view in query:
 		data.append({
-				payload.group_by: getattr(view, payload.group_by),
+				group_by: getattr(view, group_by),
 				'count': view.count
 			})
 
-	return { 'data': data }
+	return { 'data': data, 'count': len(data)}
 
 @app.route('/api/chart', methods=['GET', 'POST'])
 def get_chart_data():
-	query = database.execute_sql("""SELECT DATE(creation), count(*) from pageview group by DATE(creation)""")
+	query = db.execute_sql("""SELECT DATE(creation), count(*) from pageview group by DATE(creation)""")
 	data = []
 	for view in query:
 		data.append({
@@ -72,7 +70,7 @@ def get_chart_data():
 
 @app.route('/api/heatmap', methods=['GET', 'POST'])
 def get_heatmap_data():
-	query = database.execute_sql("""SELECT DATE(creation), count(*) from pageview group by DATE(creation)""")
+	query = db.execute_sql("""SELECT DATE(creation), count(*) from pageview group by DATE(creation)""")
 	data = {}
 	for view in query:
 		data[datetime.strptime(view[0], '%Y-%m-%d').timestamp()] = view[1]
@@ -85,11 +83,7 @@ def get_views():
 	query = PageView().select()
 	data = []
 	for view in query:
-		view_dict = {
-			'uuid': view.uuid,
-			'date': view.creation
-		}
-		data.append(view_dict)
+		data.append(model_to_dict(view))
 	return {'views': data}
 
 
