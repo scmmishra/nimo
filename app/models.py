@@ -15,6 +15,7 @@ class PageView(BaseModel):
 	path = TextField(index=True, null=False)
 	referrer = CharField(index=True)
 	is_unique = BooleanField(index=True)
+	timezone = CharField()
 	browser_name = CharField()
 	browser_version = CharField()
 	creation = DateTimeField(index=True, null = False)
