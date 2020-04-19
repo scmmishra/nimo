@@ -1,4 +1,5 @@
 import random
+import uuid
 from datetime import timedelta
 
 def random_date(start, end):
@@ -10,3 +11,6 @@ def random_date(start, end):
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
     random_second = random.randrange(int_delta)
     return start + timedelta(seconds=random_second)
+
+def get_uuid():
+	return uuid.uuid4().hex
