@@ -17,10 +17,10 @@ from datetime import datetime
 @app.route("/api/dashboard")
 def get_dashboard_data():
 	return jsonify({
-		'uniqueVisitors': 38,
-		'pageViews': 124,
-		'averageTimeOnSite': '05:34',
-		'bouncRate': '63%'
+		'uniqueVisitors': 3600,
+		'pageViews': 234011,
+		'averageTimeOnSite': '05:24',
+		'bouncRate': '68%'
 	})
 
 @app.route('/api/create/project', methods=['POST'])

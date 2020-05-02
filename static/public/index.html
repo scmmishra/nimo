@@ -9,77 +9,20 @@
 		<script type="text/javascript" src="main.js" charset="utf-8"></script>
 		<link rel="icon" type="image/png"  href="favicon.png">
 	</head>
-<body>
-	<div class="bg-gray-200 dark:bg-gray-700 font-body mx-auto">
-		<nav class="bg-white dark:bg-gray-800 shadow-sm">
-			<div class="container mx-auto flex justify-between">
-				<div class="flex h-20 mx-2">
-					<svg class="self-center mr-2 text-pink-500 dark:text-gray-300 fill-current" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="12.5" cy="12.5" r="7.5"/>
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 25C19.4036 25 25 19.4036 25 12.5C25 5.59644 19.4036 0 12.5 0C5.59644 0 0 5.59644 0 12.5C0 19.4036 5.59644 25 12.5 25ZM12.5 22C17.7467 22 22 17.7467 22 12.5C22 7.25329 17.7467 3 12.5 3C7.25329 3 3 7.25329 3 12.5C3 17.7467 7.25329 22 12.5 22Z"/>
-					</svg>
-					<div class="text-lg font-bold text-pink-600 dark:text-gray-300 uppercase tracking-widest self-center">
-						Nimo
-					</div>
-				</div>
-				<div class="self-center flex justify-end text-right">
-					<svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6 text-gray-600 hover:text-gray-700"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
-				</div>
-			</div>
-		</nav>
-		<div id="filter-area" class="container mx-auto mt-16">
+<body class="bg-white font-body">
+	<nav class="container flex justify-between h-16 mb-12">
+		<div class="self-center text-xl label">
+			Nimo
 		</div>
-		<div id="page-container" class="container mx-auto"></div>
-		<div class="container mx-auto pb-12">
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-5 mx-2 mt-6">
-				<div class="bg-white rounded shadow-md p-4 md:p-5 text-sm text-gray-700">
-					<div class="uppercase text-gray-800 tracking-widest font-bold text-sm mb-2">Page Views</div>
-					<div class="grid grid-cols-3 relative text-gray-500 font-light uppercase tracking-widest text-xs">
-						<span class="py-2 text-left">Page</span>
-						<span class="py-2 text-right">Views</span>
-						<span class="py-2 text-right">Unique</span>
-					</div>
-					<div class="grid grid-cols-3 relative mb-1 fill fill-46">
-						<span class="px-4 py-2">/</span>
-						<span class="px-4 py-2 tnum text-right">132</span>
-						<span class="px-4 py-2 tnum text-right">85</span>
-					</div>
-					<div class="grid grid-cols-3 relative mb-1 fill fill-26">
-						<span class="px-4 py-2">/team</span>
-						<span class="px-4 py-2 tnum text-right">67</span>
-						<span class="px-4 py-2 tnum text-right">58</span>
-					</div>
-					<div class="grid grid-cols-3 relative mb-1 fill fill-14">
-						<span class="px-4 py-2">/intro-to-frappe</span>
-						<span class="px-4 py-2 tnum text-right">118</span>
-						<span class="px-4 py-2 tnum text-right">75</span>
-					</div>
-				</div>
-				<div class="bg-white rounded shadow-md p-4 md:p-5 text-sm text-gray-700">
-					<div class="uppercase text-gray-800 tracking-widest font-bold text-sm mb-2">Referers</div>
-					<div class="flex relative text-gray-500 font-light uppercase tracking-widest text-xs">
-						<span class="w-3/5 py-2 text-left">Referer</span>
-						<span class="w-1/5 py-2 text-right">Views</span>
-						<span class="w-1/5 py-2 text-right">Unique</span>
-					</div>
-					<div class="flex relative mb-1 fill fill-76">
-						<span class="w-3/5 px-4 py-2">Google</span>
-						<span class="w-1/5 px-4 py-2 tnum text-right">132</span>
-						<span class="w-1/5 px-4 py-2 tnum text-right">85</span>
-					</div>
-					<div class="flex relative mb-1 fill fill-22">
-						<span class="w-3/5 px-4 py-2">DuckDuckGo</span>
-						<span class="w-1/5 px-4 py-2 tnum text-right">67</span>
-						<span class="w-1/5 px-4 py-2 tnum text-right">58</span>
-					</div>
-					<div class="flex relative mb-1 fill fill-16">
-						<span class="w-3/5 px-4 py-2">HackerNews</span>
-						<span class="w-1/5 px-4 py-2 tnum text-right">118</span>
-						<span class="w-1/5 px-4 py-2 tnum text-right">75</span>
-					</div>
-				</div>
-			</div>
+		<div class="self-center">
+			<svg class="text-black fill-current" width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+				<circle cx="12.5" cy="12.5" r="7.5"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 25C19.4036 25 25 19.4036 25 12.5C25 5.59644 19.4036 0 12.5 0C5.59644 0 0 5.59644 0 12.5C0 19.4036 5.59644 25 12.5 25ZM12.5 22C17.7467 22 22 17.7467 22 12.5C22 7.25329 17.7467 3 12.5 3C7.25329 3 3 7.25329 3 12.5C3 17.7467 7.25329 22 12.5 22Z"/>
+			</svg>
 		</div>
-	</div>
+	</nav>
+	<div id="statsDashboard" class="container my-6"></div>
+	<div id="heatmap" class="container my-6"></div>
+	<div id="chart" class="container my-6"></div>
 </body>
 </html>

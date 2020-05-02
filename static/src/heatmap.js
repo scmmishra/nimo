@@ -19,16 +19,13 @@ export default class HeatmapWidget {
 	}
 
 	setup_container() {
-		this.chart = nimo.createElement(`<div class="bg-gray-800 rounded shadow-md mt-6 mx-2 p-4 md:p-5">
-			<div class="mt-2">
-				<div class="uppercase text-pink-500 tracking-widest font-bold text-sm mb-2">Dashboard</div>
-				<div id="heatmap" class="self-center -mx-2 md:-mx-5"></div>
-			</div>
+		this.chart = nimo.createElement(`<div class="card mt-2 align-center">
+				<div id="heatmap" class="flex lg:-ml-5 justify-center overflow-auto"></div>
 		</div>`)
 
 		this.chart_wrapper = this.chart.find('#heatmap')
 		this.stats_wrapper = this.chart.find('#stats')
-		this.chart.prepend('#page-container');
+		this.chart.append('#heatmap');
 	}
 
 	render() {
@@ -40,9 +37,13 @@ export default class HeatmapWidget {
 				start: lastYear.$d,
 				end: today.$d,
 			},
+			axisOptions: {
+				xIsSeries: true,
+			},
 			width: '400px',
 			type: 'heatmap',
-			colors: ['#EDF2F7', '#E2E8F0', '#CBD5E0', '#A0AEC0', '#4A5568']
+			colors: ["#eeeeee", "#bdbdbd", "#757575", "#424242", "#000000"],
+			// colors: ["#eeeeee", "#E6FFFA", "#81E6D9", "#38B2AC", "#2C7A7B"]
 		})
 	}
 }

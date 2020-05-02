@@ -2,8 +2,7 @@ import DashboardWidget from "./dashboard.js";
 import ChartWidget from "./chart.js";
 import HeatmapWidget from "./heatmap.js";
 import Filters from "./filters.js";
-import { Dom, createElement } from "./dom.js"
-import { get_browser } from "./utils.js"
+import { Dom, createElement} from "./dom.js"
 
 import { call } from './request.js'
 
@@ -13,11 +12,11 @@ window.nimo = {};
 nimo.Dom = Dom;
 nimo.createElement = createElement;
 nimo.call = call;
-nimo.get_browser = get_browser;
 
 
 document.addEventListener('DOMContentLoaded', function() {
-	nimo.filters = new Filters();
+	// nimo.filters = new Filters();
 	nimo.dashboard = new DashboardWidget();
+	nimo.heatmap = new HeatmapWidget();
 	nimo.chart = new ChartWidget();
 });

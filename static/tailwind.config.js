@@ -1,14 +1,12 @@
 module.exports = {
 	theme: {
-		darkSelector: '.mode-dark',
+		darkSelector: ".mode-dark",
 		fontFamily: {
 			body: ["Inter", "sans-serif"],
 		},
 		container: {
-			default: "1rem",
-			sm: "2rem",
-			lg: "4rem",
-			xl: "5rem",
+			center: true,
+			padding: '1rem',
 		},
 		fontSize: {
 			xs: ".75rem",
@@ -25,17 +23,26 @@ module.exports = {
 			"7xl": "5rem",
 			"8xl": "8rem",
 		},
-	},
-	variants: {
-		backgroundColor: [
-			"dark",
-			"dark-hover",
-			"dark-group-hover",
-			"dark-even",
-			"dark-odd",
-		],
-		borderColor: ["dark", "dark-focus", "dark-focus-within"],
-		textColor: ["dark", "dark-hover", "dark-active", "dark-placeholder"],
-	},
-	plugins: [require("tailwindcss-dark-mode")()],
+		screens: {
+			sm: "520px",
+			md: "640px",
+			lg: "768px",
+			xl: "1024px",
+		},
+		extend: {
+			colors: {
+				gray: {
+					"100": "#f5f5f5",
+					"200": "#eeeeee",
+					"300": "#e0e0e0",
+					"400": "#bdbdbd",
+					"500": "#9e9e9e",
+					"600": "#757575",
+					"700": "#616161",
+					"800": "#424242",
+					"900": "#212121",
+				},
+			},
+		},
+	}
 };
