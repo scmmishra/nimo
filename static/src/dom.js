@@ -93,6 +93,11 @@ export class Dom {
 
 		return this;
 	}
+
+	on(eventName, handler) {
+		this.element.addEventListener(eventName, handler);
+		return this
+	}
 }
 
 export function getElement(selector) {
