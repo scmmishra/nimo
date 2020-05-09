@@ -9,20 +9,56 @@
 		<script type="text/javascript" src="main.js" charset="utf-8"></script>
 		<link rel="icon" type="image/png"  href="favicon.png">
 	</head>
-<body class="bg-white font-body">
+<body class="bg-gray-100 font-body">
 	<nav class="container flex justify-between h-16 mb-12">
 		<div class="self-center text-lg label">
 			Nimo
 		</div>
-		<div class="self-center">
-			<svg class="text-black fill-current" width="25" height="25" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
+		<div class="inline-flex self-center">
+			<div class="flex items-center rounded-full bg-green-200 label text-xs text-green-600 px-4 mr-5 h-6">
+				35 Active Visitors
+			</div>
+			<svg class="text-gray-900 hover:text-black fill-current cursor-pointer h-6 w-6" viewBox="0 0 25 25" xmlns="http://www.w3.org/2000/svg">
 				<circle cx="12.5" cy="12.5" r="7.5"/>
 				<path fill-rule="evenodd" clip-rule="evenodd" d="M12.5 25C19.4036 25 25 19.4036 25 12.5C25 5.59644 19.4036 0 12.5 0C5.59644 0 0 5.59644 0 12.5C0 19.4036 5.59644 25 12.5 25ZM12.5 22C17.7467 22 22 17.7467 22 12.5C22 7.25329 17.7467 3 12.5 3C7.25329 3 3 7.25329 3 12.5C3 17.7467 7.25329 22 12.5 22Z"/>
 			</svg>
 		</div>
 	</nav>
+	<div id="filterArea" class="container my-6"></div>
 	<div id="statsDashboard" class="container my-6"></div>
 	<div id="heatmap" class="container my-6"></div>
 	<div id="chart" class="container my-6"></div>
+	<div id="report" class="container my-6">
+		<div class="card text-sm text-gray-700">
+			<div class="flex justify-between mt-2 mb-4">
+				<div class="label">Pages Your Users Visit</div>
+				<div class="inline-flex border border-gray-500 rounded bg-gray-200">
+					<div class="label border-r bg-white border-gray-500 rounded px-4 py-1 text-xs text-gray-800">PageViews</div>
+					<div class="label px-4 py-1 text-xs text-gray-800 cursor-pointer">Referers</div>
+					<div class="label px-4 py-1 text-xs text-gray-800 cursor-pointer">Location</div>
+				</div>
+			</div>
+			<div class="flex relative text-gray-500 font-light uppercase tracking-widest text-xs">
+				<span class="w-3/5 py-2 text-left">Referer</span>
+				<span class="w-1/5 py-2 text-right">Views</span>
+				<span class="w-1/5 py-2 text-right">Unique</span>
+			</div>
+			<div class="flex relative mb-1 fill fill-76">
+				<span class="w-3/5 py-2">Google</span>
+				<span class="w-1/5 py-2 tnum text-right">132</span>
+				<span class="w-1/5 py-2 tnum text-right">85</span>
+			</div>
+			<div class="flex relative mb-1 fill fill-22">
+				<span class="w-3/5 py-2">DuckDuckGo</span>
+				<span class="w-1/5 py-2 tnum text-right">67</span>
+				<span class="w-1/5 py-2 tnum text-right">58</span>
+			</div>
+			<div class="flex relative mb-1 fill fill-16">
+				<span class="w-3/5 py-2">HackerNews</span>
+				<span class="w-1/5 py-2 tnum text-right">118</span>
+				<span class="w-1/5 py-2 tnum text-right">75</span>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

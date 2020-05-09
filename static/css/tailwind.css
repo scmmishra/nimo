@@ -8,11 +8,11 @@
 }
 
 .card {
-	@apply border border-gray-500 rounded py-2 px-4;
+	@apply bg-white shadow-sm border border-gray-400 rounded py-2 px-4;
 }
 
 .card:hover {
-	@apply border-gray-800
+	@apply shadow-md
 }
 
 .tnum {
