@@ -1,7 +1,7 @@
 import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
 import dayjs from 'dayjs';
 
-export default class HeatmapWidget {
+export default class Heatmap {
 	constructor() {
 		this.refresh();
 	}
@@ -43,6 +43,7 @@ export default class HeatmapWidget {
 			width: '400px',
 			type: 'heatmap',
 			radius: 3,
+			countLabel: 'Views',
 			colors: ["#CBD5E0", "#C6F6D5", "#9AE6B4", "#48BB78", "#2F855A"]
 		})
 	}

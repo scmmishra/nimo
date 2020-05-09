@@ -1,10 +1,11 @@
-import DashboardWidget from "./dashboard.js";
-import ChartWidget from "./chart.js";
-import HeatmapWidget from "./heatmap.js";
+import Dashboard from "./dashboard.js";
+import Trend from "./trend.js";
+import Heatmap from "./heatmap.js";
 import Filters from "./filters.js";
-import { Dom, createElement} from "./dom.js"
+import Report from "./report.js";
+import { Dom, createElement} from "./utils/dom.js";
 
-import { call } from './request.js'
+import { call } from './utils/request.js'
 
 import "frappe-charts/dist/frappe-charts.min.css";
 
@@ -16,7 +17,8 @@ nimo.call = call;
 
 document.addEventListener('DOMContentLoaded', function() {
 	nimo.filters = new Filters();
-	nimo.dashboard = new DashboardWidget();
-	nimo.heatmap = new HeatmapWidget();
-	nimo.chart = new ChartWidget();
+	nimo.dashboard = new Dashboard();
+	nimo.heatmap = new Heatmap();
+	nimo.trend = new Trend();
+	nimo.report = new Report();
 });

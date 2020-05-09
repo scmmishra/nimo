@@ -1,6 +1,6 @@
-import { shortenLargeNumber } from "./utils.js"
+import { shortenLargeNumber } from "./utils"
 
-export default class DashboardWidget {
+export default class Dashboard {
 	constructor(opts) {
 		this.stats = {};
 		this.refresh();
