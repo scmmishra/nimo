@@ -29,10 +29,8 @@ export default class ChartWidget {
 
 	setup_container() {
 		this.chart = nimo.createElement(`<div class="card">
-			<div class="mt-2">
-				<div class="label text-xs text-gray-800 mb-2">Overview</div>
+				<div class="label text-xs text-gray-800 my-2">Overview</div>
 				<div id="chart" class="-mx-2 md:-mx-5"></div>
-			</div>
 		</div>`)
 
 		this.chart_wrapper = this.chart.find('#chart')
@@ -51,8 +49,7 @@ export default class ChartWidget {
 			axisOptions: {
 				xAxisMode: 'tick'
 			},
-			// colors: ["#234E52", "#4FD1C5"],
-			colors: ["#000000", "#757575"],
+			colors: ["#2F855A", "#48BB78"],
 		})
 	}
 }

@@ -42,8 +42,8 @@ export default class HeatmapWidget {
 			},
 			width: '400px',
 			type: 'heatmap',
-			colors: ["#eeeeee", "#bdbdbd", "#757575", "#424242", "#000000"],
-			// colors: ["#eeeeee", "#E6FFFA", "#81E6D9", "#38B2AC", "#2C7A7B"]
+			radius: 3,
+			colors: ["#CBD5E0", "#C6F6D5", "#9AE6B4", "#48BB78", "#2F855A"]
 		})
 	}
 }

@@ -15,7 +15,7 @@ nimo.call = call;
 
 
 document.addEventListener('DOMContentLoaded', function() {
-	// nimo.filters = new Filters();
+	nimo.filters = new Filters();
 	nimo.dashboard = new DashboardWidget();
 	nimo.heatmap = new HeatmapWidget();
 	nimo.chart = new ChartWidget();
