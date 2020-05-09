@@ -23,17 +23,17 @@ def create_demo_data():
 		)
 	project.save()
 
-	d1 = datetime.strptime('1/1/2020 1:30 PM', '%m/%d/%Y %I:%M %p')
-	d2 = datetime.strptime('4/24/2020 4:50 AM', '%m/%d/%Y %I:%M %p')
+	d1 = datetime.strptime('1/1/2019 1:30 PM', '%m/%d/%Y %I:%M %p')
+	d2 = datetime.strptime('6/1/2020 4:50 AM', '%m/%d/%Y %I:%M %p')
 
 	routes = ['/', '/', '/', '/', '/blog/v8', '/projects/frappe', '/projects/charts', '/projects/nimo', '/blog/hello']
 	referrer = ['https://twitter.com', 'https://duckduckgo.com', 'https://github.com', 'https://google.com', 'https://google.com', 'https://google.com']
 	broswer = ['Chrome', 'Chrome', 'Chrome', 'Chrome', 'Firefox', 'Opera', 'Safari']
 	timezones = ['Asia/Kolkata', 'Asia/Kolkata', 'Asia/Kolkata', 'Europe/London', 'America/Chicago', 'America/New_York', 'Pacific/Honolulu', 'America/Denver', 'Europe/Istanbul']
 
-	print("Creating 5000 Entries")
+	print("Creating 15000 Entries")
 
-	for ii in range(5000):
+	for ii in range(15000):
 		rdate = random_date(d1, d2)
 		pageview = PageView.create(
 			project_id = uuid,
