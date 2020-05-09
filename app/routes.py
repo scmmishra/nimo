@@ -78,15 +78,6 @@ def get_heatmap_data():
 	return data
 
 
-@app.route('/api/views', methods=['GET'])
-def get_views():
-	query = PageView().select()
-	data = []
-	for view in query:
-		data.append(model_to_dict(view))
-	return {'views': data}
-
-
 @app.route('/api/create/pageview', methods=['POST'])
 def create_pageview():
 	payload = Box(request.get_json())
