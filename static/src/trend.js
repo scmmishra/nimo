@@ -1,6 +1,6 @@
 import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
 
-export default class ChartWidget {
+export default class Trend {
 	constructor() {
 		this.refresh();
 	}
