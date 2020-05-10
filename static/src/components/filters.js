@@ -1,10 +1,13 @@
+import store from '../store/index.js';
+
 export default class Filters {
-	constructor() {
+	constructor(options = {}) {
 		this.refresh();
 	}
 
 	refresh() {
 		this.setup_container();
+		// store.dispatch('updateFilter', ["hello", "world"]);
 	}
 
 	setup_container() {

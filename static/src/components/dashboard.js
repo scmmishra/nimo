@@ -1,8 +1,14 @@
-import { shortenLargeNumber } from "./utils"
+import { shortenLargeNumber } from "../utils.js"
+import Component from './component.js';
+import store from '../store/index.js';
 
-export default class Dashboard {
+export default class Dashboard extends Component {
 	constructor(opts) {
+		super({ store })
+
 		this.stats = {};
+		this.setup_container();
+
 		this.refresh();
 	}
 
@@ -13,7 +19,6 @@ export default class Dashboard {
 	refresh() {
 		this.getData().then(data => {
 			this.data = data;
-			this.setup_container();
 			this.render();
 		});
 	}

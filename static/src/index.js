@@ -1,11 +1,11 @@
-import Dashboard from "./dashboard.js";
-import Trend from "./trend.js";
-import Heatmap from "./heatmap.js";
-import Filters from "./filters.js";
-import Report from "./report.js";
-import { Dom, createElement} from "./utils/dom.js";
+import Dashboard from "./components/dashboard.js";
+import Trend from "./components/trend.js";
+import Heatmap from "./components/heatmap.js";
+import Filters from "./components/filters.js";
+import Report from "./components/report.js";
 
-import { call } from './utils/request.js'
+import { Dom, createElement} from "./lib/dom.js";
+import { call } from './lib/request.js'
 
 import "frappe-charts/dist/frappe-charts.min.css";
 
