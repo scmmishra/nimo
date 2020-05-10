@@ -1,5 +1,6 @@
 from app import db
 from peewee import *
+from datetime import datetime
 
 class BaseModel(Model):
 	class Meta:
@@ -18,7 +19,7 @@ class PageView(BaseModel):
 	timezone = CharField()
 	browser_name = CharField()
 	browser_version = CharField()
-	creation = DateTimeField(index=True, null = False)
+	creation = DateTimeField(default=datetime.utcnow(), index=True, null = False)
 	modified = DateTimeField(index=True, null = False)
 
 class User(BaseModel):
