@@ -1,4 +1,5 @@
 import Store from './store.js'
+import dayjs from 'dayjs';
 
 let actions = {
 	updateFilter(context, payload) {
@@ -10,13 +11,13 @@ let mutations = {
 	updateFilter(state, payload) {
 		state.filter = payload;
 		return state;
-	},
+	}
 };
 
-let d = new Date();
+let today = dayjs();
 
 let state = {
-	filter: [d.setDate(d.getDate()-30) , d]
+	filter: [today.subtract(30, 'day'), today]
 };
 
 export default new Store({
