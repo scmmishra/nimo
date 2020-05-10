@@ -13,14 +13,29 @@ from peewee import *
 
 import uuid
 from datetime import datetime
+from datetime import timedelta
 
-@app.route("/api/dashboard")
+@app.route("/api/dashboard", methods=['POST'])
 def get_dashboard_data():
+	payload = Box(request.get_json())
+	from_date = payload.from_date
+
+	query = db.execute_sql("""
+				SELECT
+					COUNT(uuid) AS count,
+					SUM(CASE WHEN is_unique THEN 1 ELSE 0 END) AS unique_count,
+					AVG(CAST((JulianDay(modified) - JulianDay(creation)) * 24 * 60 * 60 As Integer))
+				FROM pageview
+				WHERE creation > ?
+			""", (from_date, ))
+
+	data = query.fetchall()[0]
+
 	return jsonify({
-		'uniqueVisitors': 3600,
-		'pageViews': 234011,
-		'averageTimeOnSite': '05:24',
-		'bouncRate': '68%'
+		'unique': data[1],
+		'total': data[0],
+		'averageTime': data[2],
+		'bounce': '68%'
 	})
 
 @app.route('/api/create/project', methods=['POST'])
