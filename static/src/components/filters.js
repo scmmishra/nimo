@@ -8,23 +8,22 @@ export default class Filters {
 
 	refresh() {
 		this.setup_container();
-		// store.dispatch('updateFilter', ["hello", "world"]);
 	}
 
 	getOptions() {
 		let today = dayjs();
 
 		return [
-			{ label: "Today", values: [today.$d, today.$d] },
+			{ label: "Today", values: [today, today] },
 			{ label: "sectionBreak" },
-			{ label: "Last 7 Days", values: [today.subtract(7, 'day').$d, today.$d] },
-			{ label: "Last 30 Days", values: [today.subtract(30, 'day').$d, today.$d] },
-			{ label: "Last 60 Days", values: [today.subtract(60, 'day').$d, today.$d] },
+			{ label: "Last 7 Days", values: [today.subtract(7, 'day'), today] },
+			{ label: "Last 30 Days", values: [today.subtract(30, 'day'), today] },
+			{ label: "Last 60 Days", values: [today.subtract(60, 'day'), today] },
 			{ label: "sectionBreak" },
-			{ label: "Last 6 Months", values: [today.subtract(6, 'month').$d, today.$d] },
-			{ label: "Last 12 Months", values: [today.subtract(12, 'month').$d, today.$d] },
+			{ label: "Last 6 Months", values: [today.subtract(6, 'month'), today] },
+			{ label: "Last 12 Months", values: [today.subtract(12, 'month'), today] },
 			{ label: "sectionBreak" },
-			{ label: "Custom Range", values: [today.subtract(12, 'month').$d, today.$d] },
+			{ label: "Custom Range", values: [today.subtract(12, 'month'), today] },
 		]
 	}
 
@@ -84,14 +83,3 @@ export default class Filters {
 		this.filters.append("#filterArea");
 	}
 }
-
-// <span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Today</span>
-// 							<div class="border-t border-gray-400 my-1"></div>
-// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 7 days</span>
-// 							<span class="cursor-pointer font-bold block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 30 days</span>
-// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 60 days</span>
-// 							<div class="border-t border-gray-400 my-1"></div>
-// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 6 months</span>
-// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 12 months</span>
-// 							<div class="border-t border-gray-400 my-1"></div>
-// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900 cursor-pointer">Custom range</span>
