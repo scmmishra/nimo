@@ -42,3 +42,7 @@ export function shortenLargeNumber(label) {
 	// Correct for floating point error upto 2 decimal places
 	return Math.round(shortened*100)/100 + ' ' + ['', 'K', 'M', 'B', 'T'][l];
 }
+
+export function fmtMSS(time) {
+	return Math.floor(time / 60)+':'+Math.floor(time % 60);
+}
