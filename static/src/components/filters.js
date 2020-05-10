@@ -1,4 +1,5 @@
 import store from '../store/index.js';
+import dayjs from 'dayjs';
 
 export default class Filters {
 	constructor(options = {}) {
@@ -10,6 +11,23 @@ export default class Filters {
 		// store.dispatch('updateFilter', ["hello", "world"]);
 	}
 
+	getOptions() {
+		let today = dayjs();
+
+		return [
+			{ label: "Today", values: [today.$d, today.$d] },
+			{ label: "sectionBreak" },
+			{ label: "Last 7 Days", values: [today.subtract(7, 'day').$d, today.$d] },
+			{ label: "Last 30 Days", values: [today.subtract(30, 'day').$d, today.$d] },
+			{ label: "Last 60 Days", values: [today.subtract(60, 'day').$d, today.$d] },
+			{ label: "sectionBreak" },
+			{ label: "Last 6 Months", values: [today.subtract(6, 'month').$d, today.$d] },
+			{ label: "Last 12 Months", values: [today.subtract(12, 'month').$d, today.$d] },
+			{ label: "sectionBreak" },
+			{ label: "Custom Range", values: [today.subtract(12, 'month').$d, today.$d] },
+		]
+	}
+
 	setup_container() {
 		this.filters = nimo.createElement(`<div class="flex justify-between items-center">
 			<div class="text-lg label text-gray-800">
@@ -18,29 +36,11 @@ export default class Filters {
 			<div class="flex">
 				<div class="relative" style="height: 35.5px; width: 190px;">
 					<div id="dropdownButton" class="flex items-center justify-between card leading-tight cursor-pointer text-sm font-medium text-gray-800 h-full">
-						<span id="dropdownCurrentFilter" class="mr-2">Last 30 days</span>
+						<span id="currentFilter" class="mr-2">Last 30 Days</span>
 						<svg class="text-gray-700" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
 					</div>
 					<div id="dropdown" class="absolute mt-2 rounded shadow-md z-10 hidden" style="width: 236px; right: 0px;">
-						<div class="border border-gray-400 rounded bg-white font-medium text-gray-800">
-							<div class="py-1">
-								<a class=" block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Today</a>
-							</div>
-							<div class="border-t border-gray-400"></div>
-							<div class="py-1">
-								<a class=" block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 7 days</a>
-								<a class="font-bold block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 30 days</a>
-								<a class=" block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 60 days</a>
-							</div>
-							<div class="border-t border-gray-400"></div>
-							<div class="py-1">
-								<a class=" block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 6 months</a>
-								<a class=" block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 12 months</a>
-							</div>
-							<div class="border-t border-gray-400"></div>
-							<div class="py-1">
-								<span class="block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900 cursor-pointer">Custom range</span>
-							</div>
+						<div id="dropdownArea" class="border border-gray-400 rounded bg-white font-medium text-gray-800 py-1">
 						</div>
 					</div>
 				</div>
@@ -53,13 +53,45 @@ export default class Filters {
 			</div>
 		</div>`);
 
-		this.filters.prepend("#filterArea");
+		let itemClass = "cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900";
+
+
 		let dropdown = this.filters.find("#dropdown");
+		let dropdownArea = this.filters.find("#dropdownArea");
 		let currentFilter = this.filters.find("#currentFilter");
 		let dropdownButton = this.filters.find("#dropdownButton");
+
+		this.getOptions().forEach(opt => {
+			if (opt.label == "sectionBreak") {
+				nimo.createElement(`<div class="border-t border-gray-400 my-1"></div>`).append(dropdownArea);
+			} else {
+				let item = nimo.createElement(`<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">${opt.label}</span>`)
+
+				item.on('click', () => {
+					store.dispatch('updateFilter', opt.values);
+					currentFilter.html(opt.label);
+					dropdown.toggleClass("hidden");
+				})
+
+				item.append(dropdownArea)
+			}
+		})
 
 		dropdownButton.on('click', () => {
 			dropdown.toggleClass("hidden");
 		})
+
+		this.filters.append("#filterArea");
 	}
 }
+
+// <span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Today</span>
+// 							<div class="border-t border-gray-400 my-1"></div>
+// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 7 days</span>
+// 							<span class="cursor-pointer font-bold block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 30 days</span>
+// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 60 days</span>
+// 							<div class="border-t border-gray-400 my-1"></div>
+// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 6 months</span>
+// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900">Last 12 months</span>
+// 							<div class="border-t border-gray-400 my-1"></div>
+// 							<span class="cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900 cursor-pointer">Custom range</span>
