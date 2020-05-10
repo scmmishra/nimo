@@ -18,7 +18,6 @@ from datetime import timedelta
 @app.route("/api/dashboard", methods=['POST'])
 def get_dashboard_data():
 	payload = Box(request.get_json())
-	from_date = payload.from_date
 
 	query = db.execute_sql("""
 				SELECT
@@ -26,8 +25,8 @@ def get_dashboard_data():
 					SUM(CASE WHEN is_unique THEN 1 ELSE 0 END) AS unique_count,
 					AVG(CAST((JulianDay(modified) - JulianDay(creation)) * 24 * 60 * 60 As Integer))
 				FROM pageview
-				WHERE creation > ?
-			""", (from_date, ))
+				WHERE creation BETWEEN ? AND ?
+			""", (payload.from_date, payload.to_date))
 
 	data = query.fetchall()[0]
 

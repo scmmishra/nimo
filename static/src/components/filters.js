@@ -14,7 +14,7 @@ export default class Filters {
 		let today = dayjs();
 
 		return [
-			{ label: "Today", values: [today, today] },
+			{ label: "Today", values: [today.startOf('day'), today.endOf('day')] },
 			{ label: "sectionBreak" },
 			{ label: "Last 7 Days", values: [today.subtract(7, 'day'), today] },
 			{ label: "Last 30 Days", values: [today.subtract(30, 'day'), today] },
