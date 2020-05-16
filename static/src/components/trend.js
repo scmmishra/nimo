@@ -1,30 +1,50 @@
 import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
+import Component from './component.js';
+import store from '../store/index.js';
+import dayjs from 'dayjs';
 
-export default class Trend {
-	constructor() {
+var customParseFormat = require('dayjs/plugin/customParseFormat')
+var localizedFormat = require('dayjs/plugin/localizedFormat')
+dayjs.extend(customParseFormat)
+dayjs.extend(localizedFormat)
+
+export default class Trend extends Component {
+	constructor(opts) {
+		super({ store })
+
+		this.setup_container();
 		this.refresh();
 	}
 
 	getData() {
-		return {
-			labels: ["Apr 16", "Apr 15", "Apr 14", "Apr 13", "Apr 12", "Apr 11", "Apr 10", "Apr 9", "Apr 8", "Apr 7", "Apr 6", "Apr 5", "Apr 4", "Apr 3", "Apr 2", "Apr 1", "May 31", "May 30"],
-			datasets: [
-				{
-					name: "Unique Visitors", type: "bar",
-					values: [14, 3, 19, 8, 15, 8, 14, 3, 19, 8, 12, 17, 4, 4, 5, 6, 6, 3]
-				},
-				{
-					name: "Page Views", type: "bar",
-					values: [10, 15, 18, 32, 39, 25, 50, 10, 15, 18, 32, 27, 14, 14, 25, 36, 22, 17]
-				}
-			]
-		};
+		return nimo.call('chart', {
+			body: {
+				from_date: store.state.filter[0].format('YYYY-MM-DD HH:mm:ss'),
+				to_date: store.state.filter[1].format('YYYY-MM-DD HH:mm:ss')
+			}
+		})
 	}
 
 	refresh() {
-		this.data = this.getData();
-		this.setup_container();
-		this.render();
+		this.getData().then(data => {
+			let dates = data.dates.map(date => dayjs(date, "YYYY-MM-DD").format('LL'));
+
+			this.data = {
+				labels: dates,
+				datasets: [
+					{
+						name: "Unique Visitors", type: "bar",
+						values: data.unique
+					},
+					{
+						name: "Page Views", type: "bar",
+						values: data.counts
+					}
+				]
+			};
+
+			this.render();
+		});
 	}
 
 	setup_container() {
@@ -47,7 +67,8 @@ export default class Trend {
 				spaceRatio: 0.2,
 			},
 			axisOptions: {
-				xAxisMode: 'tick'
+				xAxisMode: 'tick',
+				xIsSeries: true
 			},
 			colors: ["#2F855A", "#48BB78"],
 		})

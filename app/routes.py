@@ -70,17 +70,30 @@ def get_pageviews_grouped_by(project, group_by):
 
 	return { 'data': data, 'count': len(data)}
 
-@app.route('/api/chart', methods=['GET', 'POST'])
+@app.route('/api/chart', methods=['POST'])
 def get_chart_data():
-	query = db.execute_sql("""SELECT DATE(creation), count(*) from pageview group by DATE(creation)""")
-	data = []
-	for view in query:
-		data.append({
-				'date': view[0],
-				'count': view[1]
-			})
+	payload = Box(request.get_json())
 
-	return { 'data': data }
+	query = db.execute_sql("""
+				SELECT
+					DATE(creation),
+					count(*) AS count,
+					SUM(CASE WHEN is_unique THEN 1 ELSE 0 END) AS unique_count
+				FROM pageview
+				WHERE creation BETWEEN ? AND ?
+				GROUP BY DATE(creation)
+			""", (payload.from_date, payload.to_date))
+
+	dates = []
+	counts = []
+	unique = []
+
+	for view in query:
+		dates.append(view[0])
+		counts.append(view[1])
+		unique.append(view[2])
+
+	return { 'dates': dates, 'counts': counts, 'unique': unique }
 
 @app.route('/api/heatmap', methods=['GET', 'POST'])
 def get_heatmap_data():
