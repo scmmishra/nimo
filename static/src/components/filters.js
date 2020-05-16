@@ -16,9 +16,9 @@ export default class Filters {
 		return [
 			{ label: "Today", values: [today.startOf('day'), today.endOf('day')] },
 			{ label: "sectionBreak" },
-			{ label: "Last 7 Days", values: [today.subtract(7, 'day'), today] },
-			{ label: "Last 30 Days", values: [today.subtract(30, 'day'), today] },
-			{ label: "Last 60 Days", values: [today.subtract(60, 'day'), today] },
+			{ label: "Last 7 Days", values: [today.subtract(6, 'day'), today] },
+			{ label: "Last 30 Days", values: [today.subtract(29, 'day'), today] },
+			{ label: "Last 60 Days", values: [today.subtract(59, 'day'), today] },
 			{ label: "sectionBreak" },
 			{ label: "Last 6 Months", values: [today.subtract(6, 'month'), today] },
 			{ label: "Last 12 Months", values: [today.subtract(12, 'month'), today] },

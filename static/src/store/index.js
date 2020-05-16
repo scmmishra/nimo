@@ -17,7 +17,7 @@ let mutations = {
 let today = dayjs();
 
 let state = {
-	filter: [today.subtract(30, 'day'), today]
+	filter: [today.subtract(29, 'day'), today]
 };
 
 export default new Store({
