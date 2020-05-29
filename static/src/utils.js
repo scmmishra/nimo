@@ -46,3 +46,12 @@ export function shortenLargeNumber(label) {
 export function fmtMSS(time) {
 	return Math.floor(time / 60)+':'+Math.floor(time % 60);
 }
+
+export function toTitleCase(str) {
+	return str.replace(
+		/\w\S*/g,
+		function(txt) {
+			return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+		}
+	);
+}

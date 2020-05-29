@@ -53,22 +53,33 @@ def get_projects():
 	return {'projects': data}
 
 
-@app.route('/api/pageviews/<project>/<group_by>', methods=['GET'])
-def get_pageviews_grouped_by(project, group_by):
-	group_by_field = getattr(PageView, group_by)
+@app.route('/api/pageviews/<group_by>', methods=['POST'])
+def get_pageviews_grouped_by(group_by):
+	payload = Box(request.get_json())
 
-	query = (PageView.select(group_by_field, fn.Count(PageView.uuid).alias('count'))
-				.where(PageView.project_id == project)
-				.group_by(group_by_field)).order_by(fn.Count(PageView.uuid).alias('count').desc())
+	if group_by not in PageView._meta.fields.keys():
+		abort(403)
+
+	query = db.execute_sql("""
+				SELECT
+					{0},
+					count(*) AS count,
+					SUM(CASE WHEN is_unique THEN 1 ELSE 0 END) AS unique_count
+				FROM pageview
+				WHERE creation BETWEEN ? AND ?
+				GROUP BY {0}
+			""".format(group_by), (payload.from_date, payload.to_date))
 
 	data = []
+
 	for view in query:
 		data.append({
-				group_by: getattr(view, group_by),
-				'count': view.count
-			})
+			'group': view[0],
+			'views': view[1],
+			'unique': view[2],
+		})
 
-	return { 'data': data, 'count': len(data)}
+	return { 'counts': data }
 
 @app.route('/api/chart', methods=['POST'])
 def get_chart_data():
