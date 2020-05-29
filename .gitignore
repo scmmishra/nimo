@@ -8,6 +8,7 @@ static/public/*.js
 *.mdb
 *.pdb
 *.sqlite3
+*.db*
 
 ### Linux ###
 *~
