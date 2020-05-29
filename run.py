@@ -9,4 +9,6 @@ def create_tables():
 	with db:
 		db.create_tables([Project, PageView])
 
-create_tables()
+if __name__ == "__main__":
+	create_tables()
+	app.run(host='0.0.0.0')

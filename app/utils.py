@@ -1,6 +1,5 @@
 import random
 import uuid
-from dateutil import rrule
 from datetime import datetime
 from datetime import timedelta
 

@@ -8,7 +8,6 @@ from config import config
 from peewee import *
 
 app = Flask(__name__, static_folder=config.static_folder, static_url_path=config.static_url)
-app.config['DEBUG'] = True
 
 db = SqliteDatabase(config.db_uri, pragmas=config.pragmas)
 
