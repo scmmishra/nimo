@@ -13,12 +13,7 @@ export default class Dashboard extends Component {
 	}
 
 	getData() {
-		return nimo.call('dashboard', {
-			body: {
-				from_date: store.state.filter[0].format('YYYY-MM-DD HH:mm:ss'),
-				to_date: store.state.filter[1].format('YYYY-MM-DD HH:mm:ss')
-			}
-		})
+		return nimo.call('dashboard')
 	}
 
 	refresh() {
