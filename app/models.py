@@ -24,6 +24,5 @@ class PageView(BaseModel):
 
 class User(BaseModel):
 	email = CharField(primary_key=True)
-	first_name = CharField(null = False)
-	last_name = CharField()
-	role = CharField(default="Dashboard User")
+	name = CharField(null = False)
+	password = CharField()

@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import PageView, Project
+from app.models import PageView, Project, User
 
 @app.shell_context_processor
 def make_shell_context():
@@ -7,7 +7,7 @@ def make_shell_context():
 
 def create_tables():
 	with db:
-		db.create_tables([Project, PageView])
+		db.create_tables([Project, PageView, User])
 
 if __name__ == "__main__":
 	create_tables()
