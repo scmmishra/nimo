@@ -43,13 +43,13 @@ export default class Trend extends Component {
 	}
 
 	setup_container() {
-		this.chart = nimo.createElement(`<div class="card">
+		this.body = nimo.createElement(`<div class="card">
 				<div class="label text-xs text-gray-800 my-2">Overview</div>
 				<div id="chart" class="-mx-2 md:-mx-5"></div>
 		</div>`)
 
-		this.chart_wrapper = this.chart.find('#chart')
-		this.chart.append('#chart');
+		this.chart_wrapper = this.body.find('#chart')
+		this.body.append('#chart');
 	}
 
 	render() {

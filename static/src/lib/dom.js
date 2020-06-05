@@ -11,12 +11,12 @@ export class Dom {
 	}
 
 	hide() {
-		this.element.style.display = 'none';
+		this.addClass('hidden');
 		return this;
 	}
 
 	show() {
-		this.element.style.display = '';
+		this.removeClass('hidden');
 		return this;
 	}
 
@@ -97,6 +97,10 @@ export class Dom {
 	on(eventName, handler) {
 		this.element.addEventListener(eventName, handler);
 		return this
+	}
+
+	remove() {
+		return this.element.remove()
 	}
 }
 

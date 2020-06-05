@@ -13,7 +13,7 @@ export default class Login {
 	}
 
 	setup_container() {
-		this.modal = nimo.createElement(`<div class="max-w-sm mx-auto card rounded py-2 px-4">
+		this.body = nimo.createElement(`<div class="max-w-sm mx-auto card rounded py-2 px-4">
 			<div class="label text-xs text-gray-800 my-2">Login</div>
 			<div class="my-2">
 				<input class="w-full py-2 px-4 rounded bg-gray-200 text-gray-700 my-2 text-sm" type="text" placeholder="vijay@hero.com">
@@ -22,8 +22,8 @@ export default class Login {
 			</div>
 		</div>`);
 
-		this.modal.append("#login");
-		this.loginButton = this.modal.find('#loginButton');
+		this.body.append("#login");
+		this.loginButton = this.body.find('#loginButton');
 	}
 
 	render() { }
@@ -32,5 +32,13 @@ export default class Login {
 		this.loginButton.on('click', () => {
 			store.dispatch('updateSession', { 'user': 'shivam@shivam.dev' });
 		})
+	}
+
+	hide() {
+		this.body.hide();
+	}
+
+	show() {
+		this.body.show();
 	}
 }

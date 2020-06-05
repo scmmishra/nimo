@@ -9,4 +9,12 @@ export default class Component {
 			props.store.events.subscribe("filter", () => this.refresh());
 		}
 	}
+
+	hide() {
+		return this.body.hide();
+	}
+
+	show() {
+		return this.body.show();
+	}
 }

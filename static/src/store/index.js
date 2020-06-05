@@ -27,7 +27,7 @@ let today = dayjs();
 
 let state = {
 	filter: [today.subtract(29, 'day'), today],
-	session: true
+	session: false
 };
 
 export default new Store({

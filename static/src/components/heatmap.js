@@ -1,8 +1,12 @@
 import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
+import Component from './component.js';
 import dayjs from 'dayjs';
+import store from "../store/index.js";
 
-export default class Heatmap {
+export default class Heatmap extends Component {
 	constructor() {
+		super({ store });
+		this.setup_container();
 		this.refresh();
 	}
 
@@ -13,22 +17,21 @@ export default class Heatmap {
 	refresh() {
 		this.data = this.getData().then(data => {
 			this.data = data
-			this.setup_container();
 			this.render();
 		});
 	}
 
 	setup_container() {
-		this.chart = nimo.createElement(`<div class="card mt-2 align-center">
+		this.body = nimo.createElement(`<div class="card mt-2 align-center">
 				<div id="heatmap" class="flex lg:-ml-5 justify-center overflow-auto"></div>
 		</div>`)
 
-		this.chart_wrapper = this.chart.find('#heatmap')
-		this.stats_wrapper = this.chart.find('#stats')
-		this.chart.append('#heatmap');
+		this.chart_wrapper = this.body.find('#heatmap')
+		this.stats_wrapper = this.body.find('#stats')
 	}
 
 	render() {
+		this.body.append('#heatmap');
 		let today = dayjs();
 		let lastYear = dayjs().subtract(1, 'year')
 		this.chart = new Chart(this.chart_wrapper.element, {

@@ -28,7 +28,7 @@ export default class Filters {
 	}
 
 	setup_container() {
-		this.filters = nimo.createElement(`<div class="flex flex-col md:flex-row md:justify-between md:items-center">
+		this.body = nimo.createElement(`<div class="flex flex-col md:flex-row md:justify-between md:items-center">
 			<div class="text-lg label text-gray-800">
 				Analytics for <b class="text-black">Frappe.io</b>
 			</div>
@@ -55,10 +55,10 @@ export default class Filters {
 		let itemClass = "cursor-pointer block px-4 py-2 text-sm leading-tight hover:bg-gray-100 hover:text-gray-900";
 
 
-		let dropdown = this.filters.find("#dropdown");
-		let dropdownArea = this.filters.find("#dropdownArea");
-		let currentFilter = this.filters.find("#currentFilter");
-		let dropdownButton = this.filters.find("#dropdownButton");
+		let dropdown = this.body.find("#dropdown");
+		let dropdownArea = this.body.find("#dropdownArea");
+		let currentFilter = this.body.find("#currentFilter");
+		let dropdownButton = this.body.find("#dropdownButton");
 
 		this.getOptions().forEach(opt => {
 			if (opt.label == "sectionBreak") {
@@ -80,6 +80,14 @@ export default class Filters {
 			dropdown.toggleClass("hidden");
 		})
 
-		this.filters.append("#filterArea");
+		this.body.append("#filterArea");
+	}
+
+	hide() {
+		this.body.hide();
+	}
+
+	show() {
+		this.body.show();
 	}
 }

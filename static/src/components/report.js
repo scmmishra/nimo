@@ -45,7 +45,7 @@ export default class Report extends Component {
 	}
 
 	setup_container() {
-		this.report = nimo.createElement(`<div class="card text-sm text-gray-700">
+		this.body = nimo.createElement(`<div class="card text-sm text-gray-700">
 			<div class="flex justify-between mt-2 mb-4">
 				<div id="title" class="label hidden md:block">Website Trends</div>
 				<div id="switch" class="flex w-full md:w-auto border border-gray-500 rounded bg-gray-200">
@@ -58,12 +58,12 @@ export default class Report extends Component {
 			</div>
 		</div>`);
 
-		this.report.append("#report");
-		this.reportArea = this.report.find("#report-area");
+		this.body.append("#report");
+		this.reportArea = this.body.find("#report-area");
 		this.switch = {
-			pageviews: this.report.find("#pageviews"),
-			referrer: this.report.find("#referrer"),
-			browser: this.report.find("#browser"),
+			pageviews: this.body.find("#pageviews"),
+			referrer: this.body.find("#referrer"),
+			browser: this.body.find("#browser"),
 		};
 		this.setupSwitch();
 		this.setGroupBy("pageviews", false);

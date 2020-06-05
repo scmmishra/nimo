@@ -7,7 +7,7 @@ import Login from "./components/login.js";
 import Store from "./store/store.js";
 import store from './store/index.js';
 
-import { Dom, createElement} from "./lib/dom.js";
+import { Dom, createElement, getElement} from "./lib/dom.js";
 import { call, fetch } from './lib/request.js'
 
 import "frappe-charts/dist/frappe-charts.min.css";
@@ -25,6 +25,8 @@ class NimoApp {
 		this.store = store;
 		this.fetch = fetch;
 
+		this.body = getElement('#app')
+
 		if (this.store instanceof Store) {
 			this.store.events.subscribe("session", () => this.refresh());
 		}
@@ -32,13 +34,22 @@ class NimoApp {
 
 	refresh() {
 		if (this.store.state.session) {
+			this.login && this.login.hide();
+			this.body.show();
+
 			if (!this.filters) this.filters = new Filters();
 			if (!this.dashboard) this.dashboard = new Dashboard();
 			if (!this.heatmap) this.heatmap = new Heatmap();
 			if (!this.trend) this.trend = new Trend();
 			if (!this.report) this.report = new Report();
+
 		} else {
-			if (!this.login) this.login = new Login();
+			this.body.hide();
+			if (!this.login) {
+				this.login = new Login();
+			} else {
+				this.login.show();
+			}
 		}
 	}
 }
