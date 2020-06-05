@@ -22,7 +22,7 @@ export default class Report extends Component {
 		};
 
 		let groupBy = filterMap[this.groupBy];
-		return nimo.call(`pageviews/${groupBy}`).then((data) => {
+		return nimo.fetch(`pageviews/${groupBy}`).then((data) => {
 			this.counts = data.counts;
 			this.render();
 		});

@@ -17,7 +17,7 @@ export default class Trend extends Component {
 	}
 
 	getData() {
-		return nimo.call('chart')
+		return nimo.fetch('chart')
 	}
 
 	refresh() {

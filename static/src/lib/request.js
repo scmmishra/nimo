@@ -1,14 +1,18 @@
 // https://kentcdodds.com/blog/replace-axios-with-a-simple-custom-fetch-wrapper
 import store from '../store/index.js';
 
-export function call(endpoint, { body, ...customConfig } = {}) {
-	const headers = { "Content-Type": "application/json" };
-
+export function fetch(endpoint, { body, ...customConfig } = {}) {
 	body = {
 		from_date: store.state.filter[0].format('YYYY-MM-DD HH:mm:ss'),
 		to_date: store.state.filter[1].format('YYYY-MM-DD HH:mm:ss'),
 		...body
 	}
+
+	return call(endpoint, { body, ...customConfig })
+}
+
+export function call(endpoint, { body, ...customConfig } = {}) {
+	const headers = { "Content-Type": "application/json" };
 
 	const config = {
 		method: body ? "POST" : "GET",

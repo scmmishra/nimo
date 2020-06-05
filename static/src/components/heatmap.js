@@ -7,7 +7,7 @@ export default class Heatmap {
 	}
 
 	getData() {
-		return nimo.call('heatmap')
+		return nimo.fetch('heatmap')
 	}
 
 	refresh() {

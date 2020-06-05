@@ -13,7 +13,7 @@ export default class Dashboard extends Component {
 	}
 
 	getData() {
-		return nimo.call('dashboard')
+		return nimo.fetch('dashboard')
 	}
 
 	refresh() {
