@@ -14,7 +14,7 @@ import hashlib, binascii, os
 
 from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
 	payload = Box(request.get_json())
 
@@ -32,7 +32,7 @@ def login():
 
 	return jsonify({"msg": "Bad username or password"}), 401
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
 	payload = Box(request.get_json())
 	return register(payload.email, payload.name, payload.password)

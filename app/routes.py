@@ -10,12 +10,14 @@ from flask import g
 from playhouse.shortcuts import model_to_dict
 from box import Box
 from peewee import *
+from flask_jwt_extended import jwt_required
 
 import uuid
 from datetime import datetime
 from datetime import timedelta
 
 @app.route("/api/dashboard", methods=['POST'])
+@jwt_required
 def get_dashboard_data():
 	payload = Box(request.get_json())
 
@@ -38,6 +40,7 @@ def get_dashboard_data():
 	})
 
 @app.route('/api/create/project', methods=['POST'])
+@jwt_required
 def create_project():
 	payload = Box(request.get_json())
 	project = Project.create(
@@ -47,6 +50,7 @@ def create_project():
 	return model_to_dict(project)
 
 @app.route('/api/projects', methods=['GET'])
+@jwt_required
 def get_projects():
 	query = Project().select()
 	data = [project.uuid for project in query]
@@ -54,6 +58,7 @@ def get_projects():
 
 
 @app.route('/api/pageviews/<group_by>', methods=['POST'])
+@jwt_required
 def get_pageviews_grouped_by(group_by):
 	payload = Box(request.get_json())
 
@@ -82,6 +87,7 @@ def get_pageviews_grouped_by(group_by):
 	return { 'counts': data }
 
 @app.route('/api/chart', methods=['POST'])
+@jwt_required
 def get_chart_data():
 	payload = Box(request.get_json())
 
@@ -107,6 +113,7 @@ def get_chart_data():
 	return { 'dates': dates, 'counts': counts, 'unique': unique }
 
 @app.route('/api/heatmap', methods=['GET', 'POST'])
+@jwt_required
 def get_heatmap_data():
 	query = db.execute_sql("""SELECT DATE(creation), count(*) from pageview group by DATE(creation)""")
 	data = {}
