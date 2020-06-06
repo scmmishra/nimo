@@ -1,10 +1,8 @@
 // https://kentcdodds.com/blog/replace-axios-with-a-simple-custom-fetch-wrapper
-import store from '../store/index.js';
-
 export function fetch(endpoint, { body, ...customConfig } = {}) {
 	body = {
-		from_date: store.state.filter[0].format('YYYY-MM-DD HH:mm:ss'),
-		to_date: store.state.filter[1].format('YYYY-MM-DD HH:mm:ss'),
+		from_date: nimo.store.state.filter[0].format('YYYY-MM-DD HH:mm:ss'),
+		to_date: nimo.store.state.filter[1].format('YYYY-MM-DD HH:mm:ss'),
 		...body
 	}
 
@@ -13,6 +11,10 @@ export function fetch(endpoint, { body, ...customConfig } = {}) {
 
 export function call(endpoint, { body, ...customConfig } = {}) {
 	const headers = { "Content-Type": "application/json" };
+
+	if (nimo.authManager.token) {
+		headers["Authorization"] = `Bearer ${nimo.authManager.token}`
+	}
 
 	const config = {
 		method: body ? "POST" : "GET",
@@ -30,12 +32,16 @@ export function call(endpoint, { body, ...customConfig } = {}) {
 	return window
 		.fetch(`/api/${endpoint}`, config)
 		.then(async (response) => {
-			const data = await response.json();
-
 			if (response.ok) {
+				const data = await response.json();
 				return data;
 			} else {
-				return Promise.reject(data);
+				console.log(response.status, response.statusText)
+				if (response.status == 401) {
+					nimo.authManager.logout()
+					return
+				}
+				return Promise.reject();
 			}
 		});
 }

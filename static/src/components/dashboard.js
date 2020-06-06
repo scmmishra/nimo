@@ -59,11 +59,11 @@ export default class Dashboard extends Component {
 		this.stats.total = this.body.find('#total');
 		this.stats.averageTime = this.body.find('#averageTime');
 		this.stats.bounce = this.body.find('#bounce');
+
+		this.body.append('#statsDashboard');
 	}
 
 	render() {
-		this.body.append('#statsDashboard');
-
 		Object.keys(this.data).forEach(key => {
 			let value = this.data[key];
 			if (typeof value === "number") {

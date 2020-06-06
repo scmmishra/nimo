@@ -4,7 +4,7 @@ import Heatmap from "./components/heatmap.js";
 import Filters from "./components/filters.js";
 import Report from "./components/report.js";
 import Login from "./components/login.js";
-import Store from "./store/store.js";
+import AuthManager from "./lib/auth.js"
 import store from './store/index.js';
 
 import { Dom, createElement, getElement} from "./lib/dom.js";
@@ -14,7 +14,7 @@ import "frappe-charts/dist/frappe-charts.min.css";
 
 document.addEventListener('DOMContentLoaded', function() {
 	window.nimo = new NimoApp(store)
-	nimo.refresh();
+	nimo.reload();
 });
 
 class NimoApp {
@@ -24,32 +24,36 @@ class NimoApp {
 		this.call = call;
 		this.store = store;
 		this.fetch = fetch;
+		this.appContainer = getElement('#app');
+		this.authManager = new AuthManager();
 
-		this.body = getElement('#app')
+		// Subscribe to Session Changes
+		this.store.events.subscribe("session", () => this.reload());
+	}
 
-		if (this.store instanceof Store) {
-			this.store.events.subscribe("session", () => this.refresh());
+	reload() {
+		this.setupBody();
+		if (this.store.state.session) {
+			this.filters = new Filters();
+			this.dashboard = new Dashboard();
+			this.heatmap = new Heatmap();
+			this.trend = new Trend();
+			this.report = new Report();
+		} else {
+			this.login = new Login();
 		}
 	}
 
-	refresh() {
-		if (this.store.state.session) {
-			this.login && this.login.hide();
-			this.body.show();
-
-			if (!this.filters) this.filters = new Filters();
-			if (!this.dashboard) this.dashboard = new Dashboard();
-			if (!this.heatmap) this.heatmap = new Heatmap();
-			if (!this.trend) this.trend = new Trend();
-			if (!this.report) this.report = new Report();
-
-		} else {
-			this.body.hide();
-			if (!this.login) {
-				this.login = new Login();
-			} else {
-				this.login.show();
-			}
-		}
+	setupBody() {
+		this.appContainer.empty();
+		let body = this.createElement(`<div class="container">
+			<div id="filterArea" class="my-6"></div>
+			<div id="statsDashboard" class="my-6"></div>
+			<div id="heatmap" class="my-6"></div>
+			<div id="chart" class="my-6"></div>
+			<div id="report" class="my-6"></div>
+			<div id="login" class="my-32"></div>
+		</div>`);
+		body.append('#app');
 	}
 }

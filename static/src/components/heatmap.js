@@ -28,10 +28,10 @@ export default class Heatmap extends Component {
 
 		this.chart_wrapper = this.body.find('#heatmap')
 		this.stats_wrapper = this.body.find('#stats')
+		this.body.append('#heatmap');
 	}
 
 	render() {
-		this.body.append('#heatmap');
 		let today = dayjs();
 		let lastYear = dayjs().subtract(1, 'year')
 		this.chart = new Chart(this.chart_wrapper.element, {

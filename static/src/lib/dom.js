@@ -102,6 +102,10 @@ export class Dom {
 	remove() {
 		return this.element.remove()
 	}
+
+	value() {
+		return this.element.value
+	}
 }
 
 export function getElement(selector) {

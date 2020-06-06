@@ -6,7 +6,9 @@ export default class Component {
 		this.refresh = this.refresh || function() {};
 
 		if (props.store instanceof Store) {
-			props.store.events.subscribe("filter", () => this.refresh());
+			props.store.events.subscribe("filter", () => {
+				this.refresh()
+			});
 		}
 	}
 
