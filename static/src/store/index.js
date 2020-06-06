@@ -14,12 +14,12 @@ let actions = {
 let mutations = {
 	updateFilter(state, payload) {
 		state.filter = payload;
-		return state;
+		return {'filter': payload};
 	},
 
 	updateSession(state, payload) {
 		state.session = payload;
-		return state;
+		return {'session': payload};
 	}
 };
 
