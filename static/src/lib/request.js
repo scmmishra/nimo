@@ -38,7 +38,7 @@ export function call(endpoint, { body, ...customConfig } = {}) {
 			} else {
 				console.log(response.status, response.statusText)
 				if (response.status == 401) {
-					nimo.authManager.logout()
+					nimo.navigate('login')
 					return
 				}
 				return Promise.reject();

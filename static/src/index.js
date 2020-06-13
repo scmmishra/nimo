@@ -1,11 +1,7 @@
-import Dashboard from "./components/dashboard.js";
-import Trend from "./components/trend.js";
-import Heatmap from "./components/heatmap.js";
-import Filters from "./components/filters.js";
-import Report from "./components/report.js";
-import Login from "./components/login.js";
+
 import AuthManager from "./lib/auth.js"
 import store from './store/index.js';
+import routes from './routes.js'
 
 import { Dom, createElement, getElement} from "./lib/dom.js";
 import { call, fetch } from './lib/request.js'
@@ -13,47 +9,44 @@ import { call, fetch } from './lib/request.js'
 import "frappe-charts/dist/frappe-charts.min.css";
 
 document.addEventListener('DOMContentLoaded', function() {
-	window.nimo = new NimoApp(store)
-	nimo.reload();
+	window.nimo = new NimoApp(store, routes);
+	
+	const route = () => {
+		const current_route = window.location.hash.replace('#', '')
+		let routeObj = routes[current_route];
+		this.currentPage = new routeObj.page(nimo.appContainer);
+	}
+
+	window.addEventListener('hashchange', route);
+	window.addEventListener('load', route);
 });
 
 class NimoApp {
-	constructor(store) {
+	constructor(store, routes) {
 		this.Dom = Dom;
 		this.createElement = createElement;
 		this.call = call;
 		this.store = store;
 		this.fetch = fetch;
+		this.routes = routes;
 		this.appContainer = getElement('#app');
 		this.authManager = new AuthManager();
-
-		// Subscribe to Session Changes
-		this.store.events.subscribe("session", () => this.reload());
 	}
 
-	reload() {
-		this.setupBody();
-		if (this.store.state.session) {
-			this.filters = new Filters();
-			this.dashboard = new Dashboard();
-			this.heatmap = new Heatmap();
-			this.trend = new Trend();
-			this.report = new Report();
+	route() {
+		const current_route = window.location.hash.replace('#', '')
+		let routeObj = this.routes[current_route];
+		this.currentPage = new routeObj.page(this.appContainer);
+	}
+
+	navigate(page) {
+		if (Object.keys(this.routes).includes(page)) {
+			page = '#' + page
 		} else {
-			this.login = new Login();
+			page = '#desk'
 		}
-	}
 
-	setupBody() {
-		this.appContainer.empty();
-		let body = this.createElement(`<div class="container">
-			<div id="filterArea" class="my-6"></div>
-			<div id="statsDashboard" class="my-6"></div>
-			<div id="heatmap" class="my-6"></div>
-			<div id="chart" class="my-6"></div>
-			<div id="report" class="my-6"></div>
-			<div id="login" class="my-32"></div>
-		</div>`);
-		body.append('#app');
+		window.location.hash = page;
+		nimo.route();
 	}
 }

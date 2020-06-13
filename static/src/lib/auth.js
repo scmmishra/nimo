@@ -13,7 +13,6 @@ export default class AuthManager {
 				password: password
 			}
 		}).then(data => {
-			this.token = data.access_token;
 			this.session.user = email;
 			store.dispatch('updateSession', this.session);
 		})
