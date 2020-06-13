@@ -12,8 +12,6 @@ from box import Box
 import hashlib, binascii, os
 import functools
 
-# from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
-
 @app.route('/api/login', methods=['POST'])
 def login():
 	payload = Box(request.get_json())
