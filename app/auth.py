@@ -6,13 +6,13 @@ from flask import abort
 from flask import session
 from flask import request
 from flask import g
+from flask import redirect
 
-from playhouse.shortcuts import model_to_dict
 from box import Box
-from peewee import *
 import hashlib, binascii, os
+import functools
 
-from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
+# from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -27,15 +27,15 @@ def login():
 		return jsonify({"msg": "Bad username or password"}), 401
 
 	if verify_password(user.password, password):
-		access_token = create_access_token(identity=email)
-		return jsonify(access_token=access_token), 200
-
+		session['logged_in'] = True
+		session.permanent = True
+		return jsonify(status="success"), 200
 	return jsonify({"msg": "Bad username or password"}), 401
 
-@app.route('/api/signup', methods=['POST'])
-def signup():
-	payload = Box(request.get_json())
-	return register(payload.email, payload.name, payload.password)
+@app.route('/api/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return jsonify(status="success"), 200
 
 def get_user(email):
 	try:
@@ -75,3 +75,11 @@ def verify_password(stored_password, provided_password):
 								  100000)
 	pwdhash = binascii.hexlify(pwdhash).decode('ascii')
 	return pwdhash == stored_password
+
+def login_required(fn):
+	@functools.wraps(fn)
+	def inner(*args, **kwargs):
+		if session.get('logged_in'):
+			return fn(*args, **kwargs)
+		return jsonify({"msg": "Not Logged In"}), 401
+	return inner
